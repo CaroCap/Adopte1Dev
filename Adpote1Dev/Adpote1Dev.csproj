@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Adopte1Dev.BLL\Adopte1Dev.BLL.csproj" />
+    <ProjectReference Include="..\Adopte1Dev.Common\Adopte1Dev.Common.csproj" />
+  </ItemGroup>
+
 </Project>
