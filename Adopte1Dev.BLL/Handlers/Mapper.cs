@@ -9,7 +9,7 @@ namespace Adopte1Dev.BLL.Handlers
 {
     public static class Mapper
     {
-        // Transformer les Cinemas de mon DAL en Cinema de mon BLL
+        // Transformer les Dev de mon DAL en Dev de mon BLL
         public static DeveloperBLL ToBLL(this D.Developer entity) // Ajouter une dépendance pour lier avec DAL
         {
             if (entity == null) return null;

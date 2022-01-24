@@ -1,3 +1,6 @@
+using Adopte1Dev.BLL.Entities;
+using Adopte1Dev.BLL.Repositories;
+using Adopte1Dev.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +26,11 @@ namespace Adpote1Dev
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            // INJECTER LES DEPENDANCES ICI POUR QUE LES VUES FONCTIONNENT
+            // Injection de dépendance pour la DAL
+            services.AddScoped<IDeveloperRepository<Adopte1Dev.DAL.Entities.Developer>, Adopte1Dev.DAL.Repositories.DeveloperService>();
+            // Injection de dépendance pour le BLL
+            services.AddScoped<IDeveloperRepository<DeveloperBLL>, DeveloperService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

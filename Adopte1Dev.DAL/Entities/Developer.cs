@@ -10,9 +10,9 @@ namespace Adopte1Dev.DAL.Entities
         public string DevFirstName { get; set; }
         public DateTime DevBirthDate { get; set; }
         public string? DevPicture { get; set; }
-        public float DevHourCost { get; set; }
-        public float DevDayCost { get; set; }
-        public float DevMonthCost { get; set; }
+        public double DevHourCost { get; set; }
+        public double DevDayCost { get; set; }
+        public double DevMonthCost { get; set; }
         public string DevMail { get; set; }
         public string? DevCategPrincipal { get; set; }
 

@@ -12,14 +12,14 @@ namespace Adopte1Dev.BLL.Entities
         public string DevFirstName { get; set; }
         public DateTime DevBirthDate { get; set; }
         public string? DevPicture { get; set; }
-        public float DevHourCost { get; set; }
-        public float DevDayCost { get; set; }
-        public float DevMonthCost { get; set; }
+        public double DevHourCost { get; set; }
+        public double DevDayCost { get; set; }
+        public double DevMonthCost { get; set; }
         public string DevMail { get; set; }
         public string? DevCategPrincipal { get; set; }
 
         // Constructeur 
-        public DeveloperBLL(int IdDev, string devName, string devFirstName, DateTime devBirthDate, string? devPicture, float devHourCost, float devDayCost, float devMonthCost, string devMail, string? devCategPrincipal)
+        public DeveloperBLL(int IdDev, string devName, string devFirstName, DateTime devBirthDate, string? devPicture, double devHourCost, double devDayCost, double devMonthCost, string devMail, string? devCategPrincipal)
         {
             idDev = IdDev;
             DevName = devName;
