@@ -45,5 +45,14 @@ namespace Adopte1Dev.DAL.Handlers
                 //DevCategPrincipal = (record[nameof(Developer.DevCategPrincipal)] is DBNull) ? null : (string?)record[nameof(Developer.DevCategPrincipal)],
             };
         }
+        public static Categories ToCategories(IDataRecord record)
+        {
+            if (record is null) return null;
+            return new Categories
+            {
+                idCategory = (int)record[nameof(Categories.idCategory)],
+                CategLabel = (string)record[nameof(Categories.CategLabel)],
+            };
+        }
     }
 }

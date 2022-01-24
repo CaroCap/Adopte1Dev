@@ -9,6 +9,7 @@ namespace Adopte1Dev.BLL.Handlers
 {
     public static class Mapper
     {
+        // DAL => BLL
         // Transformer les Dev de mon DAL en Dev de mon BLL
         public static DeveloperBLL ToBLL(this D.Developer entity) // Ajouter une dépendance pour lier avec DAL
         {
@@ -27,6 +28,17 @@ namespace Adopte1Dev.BLL.Handlers
                 );
         }
 
+        // Transformer les Categ de mon DAL en Categ de mon BLL
+        public static CategoriesBLL ToBLL(this D.Categories entity) // Ajouter une dépendance pour lier avec DAL
+        {
+            if (entity == null) return null;
+            return new CategoriesBLL(
+                entity.idCategory,
+                entity.CategLabel
+                );
+        }
+
+        // BLL => DAL
         public static D.Developer ToDAL(this DeveloperBLL entity)
         {
             if (entity == null) return null;
@@ -41,8 +53,17 @@ namespace Adopte1Dev.BLL.Handlers
                 DevDayCost = entity.DevDayCost,
                 DevMonthCost = entity.DevMonthCost,
                 DevMail = entity.DevMail,
-                DevCategPrincipal = entity.DevCategPrincipal
+                DevCategPrincipal = entity.DevCategPrincipal.ToString()
             };
         }
+        //public static D.Categories ToDAL(this CategoriesBLL entity)
+        //{
+        //    if (entity == null) return null;
+        //    return new D.Categories
+        //    {
+        //        entity.idCategory,
+        //        entity.CategLabel
+        //    };
+        //}
     }
 }

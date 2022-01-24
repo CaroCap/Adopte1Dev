@@ -61,8 +61,8 @@ namespace Adopte1Dev.DAL.Repositories
                 {
                     // préféré décrire les noms de colonnes plutôt que d'utiliser * par faciliter pour gagné en efficacité pour l'application
                     // * va aller chercher toutes les colonnes à chaque ligne alors qu'on sait que le nom de la colonne n'a pas changé...
-                    command.CommandText = "SELECT [idDev], [DevName], [DevFirstName], [DevBirthDate], [DevPicture], [DevHourCost], [DevDayCost], [DevMonthCost], [DevMail], [DevCategPrincipal] FROM [Developer] WHERE [idDev] = @id";
-                    SqlParameter p_id = new SqlParameter() { ParameterName = "idDev", Value = id };
+                    command.CommandText = "SELECT [idDev], [DevName], [DevFirstName], [DevBirthDate], [DevPicture], [DevHourCost], [DevDayCost], [DevMonthCost], [DevMail], [DevCategPrincipal] FROM [Developer] WHERE [idDev] = @idParam";
+                    SqlParameter p_id = new SqlParameter() { ParameterName = "idParam", Value = id };
                     command.Parameters.Add(p_id);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();

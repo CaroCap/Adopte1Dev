@@ -17,5 +17,32 @@ namespace Adpote1Dev.Handlers
                 DevCategPrincipal = entity.DevCategPrincipal
             };
         }
+
+        public static DeveloperDetails ToDetails(this DeveloperBLL entity)
+        {
+            if (entity == null) return null;
+            return new DeveloperDetails
+            {
+                idDev = entity.idDev,
+                DevName = entity.DevName,
+                DevFirstName = entity.DevFirstName,
+                DevPicture = entity.DevPicture,
+                DevCategPrincipal = entity.DevCategPrincipal,
+                DevBirthDate = entity.DevBirthDate,
+                DevHourCost = entity.DevHourCost,
+                DevDayCost = entity.DevDayCost,
+                DevMonthCost = entity.DevMonthCost,
+                DevMail = entity.DevMail
+            };
+        }
+        public static Categories ToDetails(this CategoriesBLL entity)
+        {
+            if (entity == null) return null;
+            return new Categories
+            {
+                idCategory = entity.idCategory,
+                CategLabel = entity.CategLabel                
+            };
+        }
     }
 }

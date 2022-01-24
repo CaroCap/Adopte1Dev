@@ -1,6 +1,7 @@
 ﻿using Adopte1Dev.BLL.Entities;
 using Adopte1Dev.BLL.Handlers;
 using Adopte1Dev.Common;
+using Adopte1Dev.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,39 +11,39 @@ using D = Adopte1Dev.DAL.Entities;
 
 namespace Adopte1Dev.BLL.Repositories
 {
-    public class DeveloperService : IDeveloperRepository<DeveloperBLL>
+    public class CategoriesService : ICategoriesRepository<CategoriesBLL>
     {
-        private readonly IDeveloperRepository<D.Developer> _repository;
+        private readonly ICategoriesRepository<D.Categories> _repository;
 
-        public DeveloperService(IDeveloperRepository<D.Developer> repository)
+        public CategoriesService(ICategoriesRepository<Categories> repository)
         {
             _repository = repository;
         }
 
         public void Delete(int id)
         {
-            _repository.Delete(id);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<DeveloperBLL> Get()
+        public IEnumerable<CategoriesBLL> Get()
         {
             // Vu que c'est une liste d'objet IEnumerable, il faut utiliser LinQ (using) avec le .Select pour qu'il transforme chaque Developer.
             return _repository.Get().Select(r => r.ToBLL());
         }
 
-        public DeveloperBLL Get(int id)
+        public CategoriesBLL Get(int id)
         {
             return _repository.Get(id).ToBLL();
         }
 
-        public int Insert(DeveloperBLL entity)
+        public int Insert(CategoriesBLL entity)
         {
-            return _repository.Insert(entity.ToDAL());
+            throw new NotImplementedException();
         }
 
-        public void Update(int id, DeveloperBLL entity)
+        public void Update(int id, CategoriesBLL entity)
         {
-            _repository.Update(id, entity.ToDAL());
+            throw new NotImplementedException();
         }
     }
 }

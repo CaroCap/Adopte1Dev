@@ -29,8 +29,10 @@ namespace Adpote1Dev
             // INJECTER LES DEPENDANCES ICI POUR QUE LES VUES FONCTIONNENT
             // Injection de dépendance pour la DAL
             services.AddScoped<IDeveloperRepository<Adopte1Dev.DAL.Entities.Developer>, Adopte1Dev.DAL.Repositories.DeveloperService>();
+            services.AddScoped<ICategoriesRepository<Adopte1Dev.DAL.Entities.Categories>, Adopte1Dev.DAL.Repositories.CategoriesService>();
             // Injection de dépendance pour le BLL
             services.AddScoped<IDeveloperRepository<DeveloperBLL>, DeveloperService>();
+            services.AddScoped<ICategoriesRepository<CategoriesBLL>, CategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
