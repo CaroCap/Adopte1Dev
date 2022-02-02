@@ -19,7 +19,8 @@ namespace Adopte1Dev.BLL.Entities
         public int? DevCategPrincipal { get; set; }
 
         // Constructeur 
-        public DeveloperBLL(int IdDev, string devName, string devFirstName, DateTime devBirthDate, string? devPicture, double devHourCost, double devDayCost, double devMonthCost, string devMail, string? devCategPrincipal)
+
+        public DeveloperBLL(int IdDev, string devName, string devFirstName, DateTime devBirthDate, string? devPicture, double devHourCost, double devDayCost, double devMonthCost, string devMail, int? devCategPrincipal)
         {
             idDev = IdDev;
             DevName = devName;
@@ -30,7 +31,7 @@ namespace Adopte1Dev.BLL.Entities
             DevDayCost = devDayCost;
             DevMonthCost = devMonthCost;
             DevMail = devMail;
-            DevCategPrincipal = (devCategPrincipal is null)? null : (int?)int.Parse(devCategPrincipal);
+            DevCategPrincipal = devCategPrincipal;
         }
     }
 }

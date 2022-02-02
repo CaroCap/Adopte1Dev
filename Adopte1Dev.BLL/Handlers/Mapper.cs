@@ -24,7 +24,7 @@ namespace Adopte1Dev.BLL.Handlers
                 entity.DevDayCost, 
                 entity.DevMonthCost, 
                 entity.DevMail, 
-                entity.DevCategPrincipal
+                (int.TryParse(entity.DevCategPrincipal, out int id))?(int?)id : null
                 );
         }
 

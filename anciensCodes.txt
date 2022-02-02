@@ -1,0 +1,122 @@
+INDEX DEVELOPPEURS
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DevName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevPicture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevCategPrincipal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DevName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DevFirstName)
+                </td>
+                <td>
+                    <img class="avatarPicture" src="~/images/avatarDeveloper/@Html.DisplayFor(modelItem => item.DevPicture)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DevCategPrincipal)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Details", "Details", new { id = item.idDev })
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+DETAILS
+
+@model Adpote1Dev.Models.DeveloperDetails
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>DeveloperDetails</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevFirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevFirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevBirthDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevBirthDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevPicture)
+        </dt>
+        <dd class = "col-sm-10">
+            <img class="avatarPicture" src="~/images/avatarDeveloper/@Html.DisplayFor(model => model.DevPicture)"/>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevHourCost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevHourCost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevDayCost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevDayCost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevMonthCost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevMonthCost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevMail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevMail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DevCategPrincipal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DevCategPrincipal)
+        </dd>
+    </dl>
+</div>
+<div>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    <a asp-action="Index">Back to List</a>
+</div>

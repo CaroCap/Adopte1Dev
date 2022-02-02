@@ -37,10 +37,20 @@
                 @Html.DisplayFor(modelItem => item.DevFirstName)
             </td>
             <td>
+                @if (item.DevPicture is null)
+                {
+                    <img />
+                }
+                else
+                {
                 <img class="avatarPicture" src="~/images/avatarDeveloper/@Html.DisplayFor(modelItem => item.DevPicture)" />
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CategPrincipale.CategLabel)
+                @if (!(item.CategPrincipale is null))
+                {
+                    Html.DisplayFor(modelItem => item.CategPrincipale.CategLabel);
+                }
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@

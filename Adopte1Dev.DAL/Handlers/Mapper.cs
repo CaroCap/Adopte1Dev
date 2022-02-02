@@ -34,13 +34,13 @@ namespace Adopte1Dev.DAL.Handlers
                 DevName = (string)record[nameof(Developer.DevName)],
                 DevFirstName = (string)record[nameof(Developer.DevFirstName)],
                 DevBirthDate = (DateTime)record[nameof(Developer.DevBirthDate)],
-                DevPicture = (string)record[nameof(Developer.DevPicture)],
-                //DevPicture = (record[nameof(Developer.DevPicture)] is DBNull) ? null : (string?)record[nameof(Developer.DevPicture)],
+                //DevPicture = (string)record[nameof(Developer.DevPicture)],
+                DevPicture = (record[nameof(Developer.DevPicture)] is DBNull) ? null : (string?)record[nameof(Developer.DevPicture)],
                 DevHourCost = (double)record[nameof(Developer.DevHourCost)],
                 DevDayCost = (double)record[nameof(Developer.DevDayCost)],
                 DevMonthCost = (double)record[nameof(Developer.DevMonthCost)],
                 DevMail = (string)record[nameof(Developer.DevMail)],
-                DevCategPrincipal = (string)record[nameof(Developer.DevCategPrincipal)]
+                DevCategPrincipal = (record[nameof(Developer.DevCategPrincipal)] is DBNull)? null : (string)record[nameof(Developer.DevCategPrincipal)]
                 /// Si une colone est nullable, il faut faire un test de sa nullité avant de l'envoyer dans le DTO
                 //DevCategPrincipal = (record[nameof(Developer.DevCategPrincipal)] is DBNull) ? null : (string?)record[nameof(Developer.DevCategPrincipal)],
             };

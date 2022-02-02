@@ -78,18 +78,19 @@ namespace Adopte1Dev.DAL.Repositories
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    //Output Inserted id = un ordre de récupération de données après l'insertion donc l'ID qui s'est autoincrémenté
-                    command.CommandText = "INSERT INTO [Developer]([DevName], [DevFirstName], [DevBirthDate], [DevPicture], [DevHourCost], [DevDayCost], [DevMonthCost], [DevMail], [DevCategPrincipal]) " +
-                        "OUTPUT [inserted].[Id] VALUES (@DevName, @DevFirstName, @DevBirthDate, @DevPicture, @DevHourCost, @DevDayCost, @DevMonthCost, @DevMail, @DevCategPrincipal)";
+                    // Output Inserted id = un ordre de récupération de données après l'insertion donc l'ID qui s'est auto-incrémenté
+                    // Dans cette DB pas d'autoincrémentation donc on doit insérer "manuellement" l'id 
+                    command.CommandText = "INSERT INTO [Developer] ([idDev], [DevName], [DevFirstName], [DevBirthDate], [DevPicture], [DevHourCost], [DevDayCost], [DevMonthCost], [DevMail], [DevCategPrincipal]) " +
+                        "OUTPUT [inserted].[idDev] VALUES (( SELECT MAX(idDev) FROM [Developer]) + 1, @DevName, @DevFirstName, @DevBirthDate, @DevPicture, @DevHourCost, @DevDayCost, @DevMonthCost, @DevMail, @DevCategPrincipal)";
                     SqlParameter p_nom = new SqlParameter { ParameterName = "DevName", Value = entity.DevName };
                     SqlParameter p_prenom = new SqlParameter { ParameterName = "DevFirstName", Value = entity.DevFirstName };
                     SqlParameter p_DevBirthDate = new SqlParameter { ParameterName = "DevBirthDate", Value = entity.DevBirthDate };
-                    SqlParameter p_DevPicture = new SqlParameter { ParameterName = "DevPicture", Value = entity.DevPicture };
+                    SqlParameter p_DevPicture = new SqlParameter { ParameterName = "DevPicture", Value = (object)entity.DevPicture??DBNull.Value };
                     SqlParameter p_DevHourCost = new SqlParameter { ParameterName = "DevHourCost", Value = entity.DevHourCost };
                     SqlParameter p_DevDayCost = new SqlParameter { ParameterName = "DevDayCost", Value = entity.DevDayCost };
                     SqlParameter p_DevMonthCost = new SqlParameter { ParameterName = "DevMonthCost", Value = entity.DevMonthCost };
                     SqlParameter p_DevMail = new SqlParameter { ParameterName = "DevMail", Value = entity.DevMail };
-                    SqlParameter p_DevCategPrincipal = new SqlParameter { ParameterName = "DevCategPrincipal", Value = entity.DevCategPrincipal };
+                    SqlParameter p_DevCategPrincipal = new SqlParameter { ParameterName = "DevCategPrincipal", Value = (object)entity.DevCategPrincipal ?? DBNull.Value };
                     command.Parameters.Add(p_nom);
                     command.Parameters.Add(p_prenom);
                     command.Parameters.Add(p_DevBirthDate);
