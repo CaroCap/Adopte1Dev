@@ -26,16 +26,16 @@ namespace Adpote1Dev.Controllers
         {
             IEnumerable<DeveloperListItem> model = _developeurService.Get().Select(d => d.ToListItem());
             //model.Categories = _categoriesService.GetByCinemaId(id).Select(d => d.ToDetails());
+            model = model.Select(m => { m.CategPrincipale = _categoriesService.Get((int)m.DevCategPrincipal).ToDetails(); return m; });
             return View(model);
         }
 
         public IActionResult Details(int id)
         {
             DeveloperDetails model = _developeurService.Get(id).ToDetails();
-            if (!(model.CategPrincipale is null))
+            if (!(model.DevCategPrincipal is null))
             {
-                int catID = model.DevCategPrincipal ?? 0;
-                model.CategPrincipale = _categoriesService.Get(catID).ToDetails();
+                model.CategPrincipale = _categoriesService.Get((int)model.DevCategPrincipal).ToDetails();
             } 
             //model.Diffusions = _diffusionService.GetByCinemaId(id).Select(d => d.ToDetails());
             return View(model);

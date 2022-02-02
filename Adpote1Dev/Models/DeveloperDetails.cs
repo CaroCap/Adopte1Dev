@@ -41,8 +41,9 @@ namespace Adpote1Dev.Models
         [ScaffoldColumn(false)]
         public int? DevCategPrincipal { get; set; }
 
-        [DisplayName("Langage de programmation principal")]
-        public CategoriesBLL CategPrincipale { get; set; }
+        [DisplayName("Langage principal")]
+        public string CategName { get { return this.CategPrincipale?.CategLabel; } }
+        public Categories CategPrincipale { get; set; }
 
     }
 }

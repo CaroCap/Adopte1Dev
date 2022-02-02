@@ -41,7 +41,7 @@ namespace Adopte1Dev.DAL.Repositories
                 {
                     // préféré décrire les noms de colonnes plutôt que d'utiliser * par faciliter pour gagné en efficacité pour l'application
                     // * va aller chercher toutes les colonnes à chaque ligne alors qu'on sait que le nom de la colonne n'a pas changé...
-                    command.CommandText = "SELECT [idCategory], [CategLabel] FROM [Categories] WHERE [idClient] = @idCategory";
+                    command.CommandText = "SELECT [idCategory], [CategLabel] FROM [Categories] WHERE [idCategory] = @idCategory";
                     SqlParameter p_id = new SqlParameter() { ParameterName = "idCategory", Value = id };
                     command.Parameters.Add(p_id);
                     connection.Open();

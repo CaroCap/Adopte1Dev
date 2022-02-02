@@ -20,7 +20,7 @@ namespace Adpote1Dev.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Developer"); // On redirige pour que quand on va sur le home on soit direct rediriger vers Cinema/Index
         }
 
         public IActionResult Privacy()
