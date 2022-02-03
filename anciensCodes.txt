@@ -120,3 +120,33 @@ DETAILS
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+// SESSION MANAGER
+
+using Adpote1Dev.Models;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Adpote1Dev.Handlers
+{
+    public class SessionManager
+    {
+        //private readonly ISession _session;
+        //public SessionManager(IHttpContextAccessor httpContextAccessor)
+        //{
+        //    _session = httpContextAccessor.HttpContext.Session;
+        //}
+        //public bool IsConnected { get { return _session.GetString("user") != null; } }
+
+        //public void SetUser(LoginForm form)
+        //{
+        //    _session.SetString("user", form.Email);
+        //}
+
+
+    }
+}

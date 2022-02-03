@@ -18,9 +18,9 @@ namespace Adpote1Dev.Models
         [DisplayName("Prénom")]
         [DataType(DataType.Text)] 
         public string CliFirstName { get; set; }
-        
-        [Required]
-        [EmailAddress]
+
+        [Required(ErrorMessage = "L'adresse email est obligatoire.")]
+        [EmailAddress(ErrorMessage = "L'adresse n'est au bon format.")]
         [DisplayName("Email")] 
         public string CliMail { get; set; }
         
@@ -29,9 +29,9 @@ namespace Adpote1Dev.Models
         [DisplayName("Entreprise")] 
         public string CliCompany { get; set; }
 
-        [Required(ErrorMessage = "L'adresse email est obligatoire.")]
-        [EmailAddress(ErrorMessage = "L'adresse n'est au bon format.")]
-        [DisplayName("Adresse électronique : ")]
+        [Required(ErrorMessage = "Le login est obligatoire.")]
+        [DataType(DataType.Text)]
+        [DisplayName("Login : ")]
         public string CliLogin { get; set; }
 
 

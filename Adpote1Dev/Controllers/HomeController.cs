@@ -17,18 +17,13 @@ namespace Adpote1Dev.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IClientRepository<ClientBLL> _clientService;
-        //private readonly SessionManager session;
+        private readonly SessionManager _session;
 
-
-        //public HomeController(ILogger<HomeController> logger, SessionManager session)
-        //{
-        //    _logger = logger;
-        //    this.session = session;
-        //}
-        public HomeController(ILogger<HomeController> logger, IClientRepository<ClientBLL> clientService)
+        public HomeController(ILogger<HomeController> logger, IClientRepository<ClientBLL> clientService, SessionManager session)
         {
             _logger = logger;
             _clientService = clientService;
+            this._session = session;
         }
 
         public IActionResult Index()
@@ -49,16 +44,16 @@ namespace Adpote1Dev.Controllers
 
 
         //LOGIN & SESSION
-
         public IActionResult Login()
         {
-            //if (session.IsConnected) return RedirectToAction("Index", "Home");
+            if (_session.IsConnected) return RedirectToAction("Index", "Home");
             return View();
         }
 
         ///// <summary>
         ///// Action récupérant le formulaire dans un model LoginForm, que j'ai créé moi-même, permet de travailler les donnée d'un formulaire.
-        ///// ATTENTION : Signature doit être différente de l'affichage du formulaire, et être d'un HttpVerb différent, si l'affichage est en GET, la récupération est en POST (vérifier que la balise form contienne une méthode POST) : [HttpPost]
+        ///// ATTENTION : Signature doit être différente de l'affichage du formulaire, et être d'un HttpVerb différent, si l'affichage est en GET, la récupération est en POST 
+        ///// (vérifier que la balise form contienne une méthode POST) : [HttpPost]
         ///// </summary>
         ///// <param name="formCollection"></param>
         ///// <returns></returns>
@@ -67,16 +62,17 @@ namespace Adpote1Dev.Controllers
         {
             //ValidateLoginForm(form, ModelState);
             if (!ModelState.IsValid) return View();
-            if (_clientService.checkPassword(form.CliLogin, form.CliPassword) == -1) return View();
-            //session.SetUser(form);
+            int id = _clientService.checkPassword(form.CliLogin, form.CliPassword);
+            if ( id == -1) return View();
+            _session.User = _clientService.Get(id);
             return RedirectToAction("Index", "Home");
         }
 
-        //public IActionResult LogOut()
-        //{
-        //    HttpContext.Session.Clear();
-        //    return RedirectToAction("Login");
-        //}
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
 
         public IActionResult LoginCreate()
         {
@@ -98,7 +94,7 @@ namespace Adpote1Dev.Controllers
                 newClient.CliPassword
                 );
             result.idClient = this._clientService.Insert(result);
-            //session.SetUser(form);
+            _session.User = _clientService.Get(result.idClient);
             return RedirectToAction("Index", "Home");
         }
     }

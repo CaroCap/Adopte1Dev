@@ -26,6 +26,21 @@ namespace Adpote1Dev
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // GESTION COOKIES SESSION (+ ajouter dans configure)
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.Cookie.Name = "SessionCookies";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+            });
+
+            services.Configure<CookiePolicyOptions>(options => {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+            });
+
+
             services.AddControllersWithViews();
             // INJECTER LES DEPENDANCES ICI POUR QUE LES VUES FONCTIONNENT
             // Injection de dépendance pour la DAL
@@ -37,8 +52,10 @@ namespace Adpote1Dev
             services.AddScoped<IDeveloperRepository<DeveloperBLL>, DeveloperService>();
             services.AddScoped<ICategoriesRepository<CategoriesBLL>, CategoriesService>();
             services.AddScoped<IClientRepository<ClientBLL>, ClientService>();
-            
-            //services.AddScoped<SessionManager>();
+
+            // Pour Session Manager 
+            services.AddHttpContextAccessor();
+            services.AddScoped<SessionManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,9 +70,10 @@ namespace Adpote1Dev
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            // SESSION
-            //app.UseSession();
-            //
+            // COOKIES & SESSION
+            app.UseSession();
+            app.UseCookiePolicy();
+            
 
             app.UseStaticFiles();
 

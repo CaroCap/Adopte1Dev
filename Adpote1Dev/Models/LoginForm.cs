@@ -10,7 +10,7 @@ namespace Adpote1Dev.Models
     public class LoginForm
     {
         [Required(ErrorMessage = "L'adresse email est obligatoire.")]
-        [EmailAddress(ErrorMessage = "L'adresse n'est au bon format.")]
+        [EmailAddress(ErrorMessage = "L'adresse n'est pas au bon format.")]
         [DisplayName("Adresse électronique : ")]
         public string CliLogin { get; set; }
 

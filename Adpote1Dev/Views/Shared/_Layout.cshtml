@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Adpote1Dev.Handlers;
+@inject SessionManager sessionManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,31 +27,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                        </li>
-                        @*@if (!sessionManager.IsConnected)
-        {
-            <li class="nav-item">
-                @Html.ActionLink("Vers le fomulaire de Login", "Login", "Demo", new { @class = "nav-link text-dark" })
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                @Html.ActionLink("Déconnection", "LogOut", "Demo", new { @class = "nav-link text-dark" })
-            </li>
-            <li class="nav-item">
-                @Html.ActionLink("Partiellement Déconnecté", "PartiallyLogOut", "Demo", new { @class = "nav-link text-dark" })
-            </li>
-        }*@
+                        </li>*@
                     </ul>
+
+                        @if (!sessionManager.IsConnected)
+                        {
+                            <div class="">
+                                @Html.ActionLink("Se Connecter", "Login", "Home", new { @class = "text-dark" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="">
+                                @Html.ActionLink("Déconnexion", "LogOut", "Home", new { @class = "text-dark" })
+                            </div>
+                        }
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @Html.Partial("_CookiesConsentPartial")
+
             @RenderBody()
         </main>
     </div>
