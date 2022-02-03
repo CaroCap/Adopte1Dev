@@ -7,8 +7,28 @@ using System.Threading.Tasks;
 
 namespace Adpote1Dev.Models
 {
-    public class LoginForm
+    public class LoginCreate
     {
+        [Required]
+        [DisplayName("Nom")]
+        [DataType(DataType.Text)]
+        public string CliName { get; set; }
+        
+        [Required]
+        [DisplayName("Prénom")]
+        [DataType(DataType.Text)] 
+        public string CliFirstName { get; set; }
+        
+        [Required]
+        [EmailAddress]
+        [DisplayName("Email")] 
+        public string CliMail { get; set; }
+        
+        [Required]
+        [DataType(DataType.Text)]
+        [DisplayName("Entreprise")] 
+        public string CliCompany { get; set; }
+
         [Required(ErrorMessage = "L'adresse email est obligatoire.")]
         [EmailAddress(ErrorMessage = "L'adresse n'est au bon format.")]
         [DisplayName("Adresse électronique : ")]
@@ -20,6 +40,5 @@ namespace Adpote1Dev.Models
         [DataType(DataType.Password)]
         [DisplayName("Mot de passe : ")]
         public string CliPassword { get; set; }
-
     }
 }

@@ -11,6 +11,32 @@ namespace Adopte1Dev.DAL.Repositories
 {
     public class ClientService : ServiceBase, IClientRepository<Client>
     {
+        public int checkPassword(string login, string password)
+        {
+            // Connecter établir la connexion
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+            // Mettre en place une commande sql 
+            using (SqlCommand command = connection.CreateCommand())
+                {
+            // Définir l'ordre sql dans le command text
+                    command.CommandText = "SELECT [idClient] FROM [Client] WHERE [CliLogin] = @cliLogin AND [CliPassword] = @cliPassword";
+            // ParameterName = nom de la colonne de la DB et Value = nom des valeurs entre parenthèses de la fonction (login et password ici)
+                    SqlParameter p_login = new SqlParameter() { ParameterName = "CliLogin", Value = login };
+                    SqlParameter p_password = new SqlParameter() { ParameterName = "CliPassword", Value = password };
+                    command.Parameters.Add(p_login);
+                    command.Parameters.Add(p_password);
+                    connection.Open();
+                    // Récupération du résultat
+                    // executeScalar car 1 seul retour
+                    object result = command.ExecuteScalar();
+                    if (result is null) return -1;
+                    return (int)result;
+                }
+            }
+
+        }
+
         public void Delete(int id)
         {
             //ampoule sur SqlConnection pour Install package 'System.Data.SqlClient' puis Find and Install latest version
@@ -82,13 +108,18 @@ namespace Adopte1Dev.DAL.Repositories
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     //Output Inserted id = un ordre de récupération de données après l'insertion donc l'ID qui s'est autoincrémenté
-                    command.CommandText = "INSERT INTO [Client]([CliName], [CliFirstName], [CliMail], [CliCompany], [CliLogin], [CliPassword]) OUTPUT [inserted].[Id] VALUES (@CliName, @CliFirstName, @CliMail, @CliLogin, @CliPassword)";
+                    command.CommandText = "INSERT INTO [Client]([idClient], [CliName], [CliFirstName], [CliMail], [CliCompany], [CliLogin], [CliPassword]) " +
+                        "OUTPUT [inserted].[idClient] VALUES ((COALESCE((SELECT MAX(idClient) FROM [Client]),0)+1),@CliName, @CliFirstName, @CliMail, @CliCompany, @CliLogin, @CliPassword)";
+                        // COALESCE => permet de vérifier la nullité. Si pas null prend la première valeur sinon prend la valeur suivante.
+                        // ex : ici, si max idClient = à une valeur, alors on prend cette valeur. Si max idClient est null alors prend la valeur 0.
+                    SqlParameter p_id = new SqlParameter { ParameterName = "idClient", Value = entity.idClient };
                     SqlParameter p_nom = new SqlParameter { ParameterName = "CliName", Value = entity.CliName };
                     SqlParameter p_prenom = new SqlParameter { ParameterName = "CliFirstName", Value = entity.CliFirstName };
                     SqlParameter p_CliMail = new SqlParameter { ParameterName = "CliMail", Value = entity.CliMail };
                     SqlParameter p_CliCompany = new SqlParameter { ParameterName = "CliCompany", Value = entity.CliCompany };
                     SqlParameter p_CliLogin = new SqlParameter { ParameterName = "CliLogin", Value = entity.CliLogin };
                     SqlParameter p_CliPassword = new SqlParameter { ParameterName = "CliPassword", Value = entity.CliPassword };
+                    command.Parameters.Add(p_id);
                     command.Parameters.Add(p_nom);
                     command.Parameters.Add(p_prenom);
                     command.Parameters.Add(p_CliMail);

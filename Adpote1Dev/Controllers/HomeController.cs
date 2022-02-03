@@ -1,4 +1,7 @@
-﻿using Adpote1Dev.Handlers;
+﻿using Adopte1Dev.BLL.Entities;
+using Adopte1Dev.Common;
+using Adopte1Dev.DAL.Entities;
+using Adpote1Dev.Handlers;
 using Adpote1Dev.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,6 +16,7 @@ namespace Adpote1Dev.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IClientRepository<ClientBLL> _clientService;
         //private readonly SessionManager session;
 
 
@@ -21,9 +25,10 @@ namespace Adpote1Dev.Controllers
         //    _logger = logger;
         //    this.session = session;
         //}
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IClientRepository<ClientBLL> clientService)
         {
             _logger = logger;
+            _clientService = clientService;
         }
 
         public IActionResult Index()
@@ -57,19 +62,44 @@ namespace Adpote1Dev.Controllers
         ///// </summary>
         ///// <param name="formCollection"></param>
         ///// <returns></returns>
-        //[HttpPost]
-        //public IActionResult Login(LoginForm form)
-        //{
-        //    //ValidateLoginForm(form, ModelState);
-        //    if (!ModelState.IsValid) return View();
-        //    session.SetUser(form);
-        //    return RedirectToAction("Index", "Home");
-        //}
+        [HttpPost]
+        public IActionResult Login(LoginForm form)
+        {
+            //ValidateLoginForm(form, ModelState);
+            if (!ModelState.IsValid) return View();
+            if (_clientService.checkPassword(form.CliLogin, form.CliPassword) == -1) return View();
+            //session.SetUser(form);
+            return RedirectToAction("Index", "Home");
+        }
 
         //public IActionResult LogOut()
         //{
         //    HttpContext.Session.Clear();
         //    return RedirectToAction("Login");
         //}
+
+        public IActionResult LoginCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LoginCreate(LoginCreate newClient)
+        {
+            //ValidateLoginForm(form, ModelState);
+            if (!ModelState.IsValid) return View();
+            ClientBLL result = new ClientBLL(
+                0,
+                newClient.CliName,
+                newClient.CliFirstName,
+                newClient.CliMail,
+                newClient.CliCompany,
+                newClient.CliLogin,
+                newClient.CliPassword
+                );
+            result.idClient = this._clientService.Insert(result);
+            //session.SetUser(form);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

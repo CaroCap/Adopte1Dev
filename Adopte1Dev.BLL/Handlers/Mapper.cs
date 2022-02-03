@@ -37,6 +37,19 @@ namespace Adopte1Dev.BLL.Handlers
                 entity.CategLabel
                 );
         }
+        public static ClientBLL ToBLL(this D.Client entity) // Ajouter une dépendance pour lier avec DAL
+        {
+            if (entity == null) return null;
+            return new ClientBLL(
+                entity.idClient,
+                entity.CliName,
+                entity.CliFirstName,
+                entity.CliMail,
+                entity.CliCompany,
+                entity.CliLogin,
+                entity.CliPassword
+                );
+        }
 
         // BLL => DAL
         public static D.Developer ToDAL(this DeveloperBLL entity)
@@ -65,5 +78,21 @@ namespace Adopte1Dev.BLL.Handlers
         //        entity.CategLabel
         //    };
         //}
+
+        public static D.Client ToDAL(this ClientBLL entity) // Ajouter une dépendance pour lier avec DAL
+        {
+            if (entity == null) return null;
+            return new D.Client
+            {
+
+                idClient = entity.idClient,
+                CliName = entity.CliName,
+                CliFirstName = entity.CliFirstName,
+                CliMail = entity.CliMail,
+                CliCompany = entity.CliCompany,
+                CliLogin = entity.CliLogin,
+                CliPassword = entity.CliPassword
+            };
+        }
     }
 }

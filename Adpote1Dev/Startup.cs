@@ -31,10 +31,12 @@ namespace Adpote1Dev
             // Injection de dépendance pour la DAL
             services.AddScoped<IDeveloperRepository<Adopte1Dev.DAL.Entities.Developer>, Adopte1Dev.DAL.Repositories.DeveloperService>();
             services.AddScoped<ICategoriesRepository<Adopte1Dev.DAL.Entities.Categories>, Adopte1Dev.DAL.Repositories.CategoriesService>();
+            services.AddScoped<IClientRepository<Adopte1Dev.DAL.Entities.Client>, Adopte1Dev.DAL.Repositories.ClientService>();
 
             // Injection de dépendance pour le BLL
             services.AddScoped<IDeveloperRepository<DeveloperBLL>, DeveloperService>();
             services.AddScoped<ICategoriesRepository<CategoriesBLL>, CategoriesService>();
+            services.AddScoped<IClientRepository<ClientBLL>, ClientService>();
             
             //services.AddScoped<SessionManager>();
         }
